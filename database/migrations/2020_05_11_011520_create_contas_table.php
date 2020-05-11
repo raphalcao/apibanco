@@ -15,7 +15,7 @@ class CreateContasTable extends Migration
     {
         Schema::create('contas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('conta_corrente');
+            $table->unsignedInteger('numero');
             $table->decimal('saldo', 10, 2);
             $table->timestamps();
         });

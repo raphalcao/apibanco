@@ -9,44 +9,52 @@ class ContaController extends Controller
 {
     public function saldo($conta)
     {
-        $contaCorrente = Conta::where('conta_corrente', $conta)->first();
+        $contaCorrente = Conta::where('numero', $conta)->first();
         
-        return [
-           
-            'saldo' => $contaCorrente->saldo
-        ];
+        if (! $contaCorrente) {
+            return [
+                'erro' => 'Conta inexistente'
+            ];
+        }
 
-        
-        
+        return [           
+            'saldo' => $contaCorrente->saldo
+        ];       
     }
 
     public function depositar($conta, $valor) 
     {
-        $contaCorrente = Conta::where('conta_corrente', $conta)->first();
+        $contaCorrente = Conta::where('numero', $conta)->first();
 
         if (! $contaCorrente) {
             $retorno = Conta::create([
-                'conta_corrente' => $conta, 
+                'numero' => $conta, 
                 'saldo' => $valor,
             ]);
 
             return [
-                'conta' => $retorno->conta_corrente,
+                'conta' => $retorno->numero,
                 'saldo' => $retorno->saldo
             ];
         } 
         
+        if ($valor == 0 ) {
+            return [
+                'erro' => 'Deposito vazio invalido.'
+            ];
+        }
+        
         $contaCorrente->increment('saldo', $valor);
         
         return [
-            'conta' => $contaCorrente->conta_corrente,
+            'conta' => $contaCorrente->numero,
             'saldo' => $contaCorrente->saldo
         ];
     }
 
     public function sacar($conta, $valor) 
     {
-        $contaCorrente = Conta::where('conta_corrente', $conta)->first();
+        $contaCorrente = Conta::where('numero', $conta)->first();
 
         if (! $contaCorrente) {
             return [
@@ -55,7 +63,7 @@ class ContaController extends Controller
 
         }
 
-        if($valor > $contaCorrente->saldo) {
+        if ($valor > $contaCorrente->saldo) {
             return [
                 'erro' => 'Saldo insuficiente'
             ];
@@ -64,12 +72,8 @@ class ContaController extends Controller
         $contaCorrente->decrement('saldo', $valor);
 
         return [
-            'conta' => $contaCorrente->conta_corrente,
+            'conta' => $contaCorrente->numero,
             'saldo' => $contaCorrente->saldo
-        ];
-
-        
-
-
+        ];       
     }
 }
