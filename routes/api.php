@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('depositar/{conta}/{valor}', 'ContaController@depositar');
 Route::get('sacar/{conta}/{valor}', 'ContaController@sacar');
+Route::get('saldo/{conta}', 'ContaController@saldo');
