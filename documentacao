@@ -1,0 +1,11 @@
+Documentação do challange – API BANCO
+
+	Esta documentação tem por objetivo orientar na execução do teste do projeto API BANCO enviado no github, através do link: https://github.com/raphalcao/apibanco.
+	A API está construída em php, na versão 7.4.5, utilizando o framework Laravel, versão 7.10.3. 
+Após baixar o projeto no github:
+1.	As rotas estão definidas no diretório routes/api.php
+2.	Os testes da API estão no diretório tests/Feature/ContaTest.php. Para executar o teste, deve executar o comando php artisan test. 
+OBS: Para que o teste testVerificaValorVazio() funcione corretamente, é necessário criar a conta ‘54321’ ou modificar o número da conta no parâmetro já pré-definido (‘api/depositar/54321/0’). 
+3.	Os métodos estão na controller, localizados no diretório Controllers/ContaController.php.
+4.	O arquivo de criação de database está localizado no diretório database/migrations/2020_05_11_011520_create_contas_table.php. 
+Rode o comando php artisan migrate para criar o banco de dados.
