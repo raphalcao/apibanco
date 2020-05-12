@@ -63,6 +63,24 @@ class ContaTest extends TestCase
     }
 
     /**
+     * Esse teste tem por finalidade testar saque vazio.
+     *
+     * @return void
+     */
+    public function testSaquevazio()
+    {
+        $this->get('/api/depositar/1234567/450');
+        $response = $this->get('/api/sacar/1234567/0');
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'erro' => 'Nao deve ter saque vazio'
+            ]);
+
+    }
+
+    /**
      * Testa a validação de conta.
      *
      * @return void
